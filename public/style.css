@@ -1,24 +1,178 @@
-*{
+/******************************************
+/* CSS
+/*******************************************/
+
+/* Box Model Hack */
+* {
     box-sizing: border-box;
 }
-body{
-    background-image: url(images/rain.gif);
-    background-size: cover;
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+body {
+    background-image: url(imgs/vrantbackground.gif);
+    background-size: 100% 100vh;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    font-size: 3em;
+    margin: 0rem;
+    height: 5rem;
+    text-align: end;
+    color: black;
+    border: black solid 0px;
+    background-image: url(https://pbs.twimg.com/media/EVSLGyeUYAAzxAp?format=jpg&name=4096x4096);
+    background-position: 0vh 54%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    padding-right: 30px;
+    padding-top: 5px;
+}
+
+section {
+    width: 52%;
+    height: 52rem;
+    float: left;
+    margin-left: 2rem;
+    margin-top: 3rem;
+    border: 2px solid black;
+    background-image: url(https://images.wallpapersden.com/image/download/valorant-game-team_bGZnbGeUmZqaraWkpJRobWllrWdma2U.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 86%;
+    background-position: 0% 0%;
+}
+
+select#agentSelect {
+    height: 2.5rem;
+    width: 50%;
+    font-size: 1.3em;
+    border-radius: 0.3rem;
+    float: left;
+    text-align: center;
+    color: white;
+    background: black;
+    margin-top: 0rem;
+    border: 3px solid red;
+}
+
+select#agentTier {
+    height: 2.5rem;
+    width: 50%;
+    font-size: 1.3em;
+    border-radius: 0.3rem;
+    float: left;
+    text-align: center;
+    margin-top: 0rem;
+    background: black;
+    color: white;
+    border: 3px red solid;
+}
+
+button#tierBtn {
+    margin-left: 38%;
+    font-size: 1.6em;
+    float: left;
+    border-radius: 0.3rem;
+    background: black;
+    color: white;
+    border: 3px solid red;
+}
+
+li#line {
+    color: white;
+    text-decoration: black;
+    font-size: 1.2em;
+    float: left;
+    width: 37rem;
+    height: auto;
+}
+
+p#retier {
+    color: white;
+    font-size: 3.5em;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 10.9%;
+    margin-top: -1%;
+    border: red solid 3px;
+    border-radius: 5px;
+    background: black;
+}
+
+div {
+    height: 36.74rem;
+    width: 47rem;
+    float: left;
+}
+
+li {
+    float: left;
+    height: 2rem;
+    font-weight: 600;
+    width: 42rem;
+    font-size: 2em;
     color: white;
 }
-h1{
-    text-align: center;
-    color: red;
+
+.botdiv {
+
+    height: 12rem;
+    background-image: url(https://images6.alphacoders.com/107/1072679.jpg);
+    background-size: 99% 26vh;
+    background-repeat: no-repeat;
+    float: right;
+    width: 38%;
+    margin: 36% 4% 0% 0%;
+    border-radius: 17px;
 }
-form{
-    text-align: center;
+
+button.tierList {
+    margin-left: 18rem;
+    font-size: 1.6em;
+    border: 2px solid black;
+    border-radius: 0.3rem;
 }
-img{
-    height: 200px;
+
+.retier {
+    color: darkgray;
+    float: left;
+    height: 2rem;
+    font-weight: 600;
+    width: 42rem;
+    font-size: 2em;
 }
-.kittys{
-    text-align: center;
+
+ul#agentList {
+    height: 32.7rem;
+    width: 87%;
+    float: left;
+    margin-left: 6rem;
+    list-style: decimal;
 }
-ul{
-    list-style-type: none;
+
+li:nth-child(1) {
+    display: none;
 }
+
+li:nth-child(2) {
+    display: none;
+}
+
+
+button.retierAgents {
+    height: 5vh;
+    width: 16vh;
+    border: red solid 3px;
+    background: black;
+    color: white;
+    margin-left: 38%;
+    font-size: 1.3em;
+}
+
+
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/

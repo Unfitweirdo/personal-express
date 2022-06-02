@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   	<meta charset="utf-8">
+    	<meta name="Valorant Tier List" content="My personal Valorant node.js/Express">
+		<title> Valorant Tier List</title>
+		<!-- external CSS link -->
+		<link rel="stylesheet" href="normalize.css">
+		<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header>
+		<h1>Valorant Agent Tier List</h1>
+	</header>
+
+    <section>
+			<form action="/tierList"  id="VrantForm" method="POST">
+			<select name="agent" id="agentSelect">
+        <option value="Brimstone">Brimstone </option>
+        <option value="Viper">Viper </option>
+        <option value="omen">omen</option>
+        <option value="Killjoy">Killjoy</option>
+        <option value="Cypher">Cypher </option>
+        <option value="Sova"> Sova</option>
+        <option value="Sage">Sage </option>
+        <option value="Phoenix">Phoenix </option>
+        <option value="Jett">Jett </option>
+        <option value="Reyna">Reyna </option>
+        <option value="Raze"> Raze</option>
+        <option value="Breach"> Breach</option>
+        <option value="Skye">Skye </option>
+        <option value="Yoru"> Yoru</option>
+        <option value="Astra">Astra </option>
+        <option value="KayO"> Kay/O</option>
+        <option value="Chamber">Chamber </option>
+        <option value="Neon"> Neon</option>
+        <option value="Fade">Fade</option>
+      </select>
+      <select name="agentTier" id="agentTier" placeholder="Rate agent on scale of S tier - C tier">
+        <option value="S">S-Tier</option>
+        <option value="A">A-Tier</option>
+        <option value="B">B-Tier</option>
+        <option value="C">C-Tier</option>
+      </select>
+			<button type="submit" id="tierBtn">Add Agent to Tier list</button>
+            </form>
+
+             <ul class="agentUl" id="agentList">
+               <% for(var i=0; i<agent.length; i++) {%>
+                <li>
+                  <span class style='text-decoration: '><%= agent[i].agent %></span>
+                  <span class="tierList"> </span>
+                </li>
+                <% } %>
+              </ul>
+</section>
+ <div class="botdiv">
+        <p id="retier">Recast your agent tier picks</p>
+        <button class="retierAgents">Restart Tier List</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

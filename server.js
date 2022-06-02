@@ -1,88 +1,68 @@
 const express = require('express')
+const app = express()
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
-const app = express()
 
-// ========================
-// Link to Database
-// ========================
-// Updates environment variables
-// @see https://zellwk.com/blog/environment-variables/
-require('./dotenv')
+var db, collection;
 
-// Replace process.env.DB_URL with your actual connection string
-const connectionString = process.env.DB_URL
+const url = "mongodb+srv://fwcii:k8wB7Fgy1ZnvDTt5@cluster0.dtybu.mongodb.net/?retryWrites=true&w=majority";
+const dbName = "vrant";
 
-MongoClient.connect(connectionString, { useUnifiedTopology: true })
-  .then(client => {
-    console.log('Connected to Database')
-    const db = client.db('star-wars-quotes')
-    const quotesCollection = db.collection('quotes')
-
-    // ========================
-    // Middlewares
-    // ========================
-    app.set('view engine', 'ejs')
-    app.use(bodyParser.urlencoded({ extended: true }))
-    app.use(bodyParser.json())
-    app.use(express.static('public'))
-
-    // ========================
-    // Routes
-    // ========================
-    app.get('/', (req, res) => {
-      db.collection('quotes').find().toArray()
-        .then(quotes => {
-          res.render('index.ejs', { quotes: quotes })
-        })
-        .catch(/* ... */)
-    })
-
-    app.post('/quotes', (req, res) => {
-      quotesCollection.insertOne(req.body)
-        .then(result => {
-          res.redirect('/')
-        })
-        .catch(error => console.error(error))
-    })
-
-    app.put('/quotes', (req, res) => {
-      quotesCollection.findOneAndUpdate(
-        { name: 'Yoda' },
-        {
-          $set: {
-            name: req.body.name,
-            quote: req.body.quote
-          }
-        },
-        {
-          upsert: true
+app.listen(8000, () => {
+    MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
+        if (error) {
+            throw error;
         }
-      )
-        .then(result => res.json('Success'))
-        .catch(error => console.error(error))
-    })
+        db = client.db(dbName);
+        console.log("Connected to `" + dbName + "`!");
+    });
+});
 
-    app.delete('/quotes', (req, res) => {
-      quotesCollection.deleteOne(
-        { name: req.body.name }
-      )
-        .then(result => {
-          if (result.deletedCount === 0) {
-            return res.json('No quote to delete')
-          }
-          res.json('Deleted Darth Vadar\'s quote')
+app.set('view engine', 'ejs')
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(express.static('public'))
+
+app.get('/', (req, res) => {
+    db.collection('vrant').find().toArray((err, result) => {
+        if (err) return console.log(err)
+        console.log(result)
+        res.render('index.ejs', { agent: result })
+    })
+})
+
+app.post('/tierList', (req, res) => {
+    db.collection('vrant').insertOne({
+        agent: req.body.agent,
+        tierList: false
+    }, (err, result) => {
+        if (err) return console.log(err)
+        console.log('saved to database')
+        res.redirect('/')
+    })
+})
+
+app.put('/agentPantry', (req, res) => {
+    console.log(req.body)
+    db.collection('vrant')
+
+        .findOneAndUpdate({ agent: req.body.agent, tierList: false}, {
+
+            $set: {
+                tierList: true
+            }
+        }, {
+            sort: { _id: -1 },
+            upsert: false
+        }, (err, result) => {
+            if (err) return res.send(err)
+            res.send(result)
         })
-        .catch(error => console.error(error))
-    })
+})
 
-    // ========================
-    // Listen
-    // ========================
-    const isProduction = process.env.NODE_ENV === 'production'
-    const port = isProduction ? 7500 : 3000
-    app.listen(port, function () {
-      console.log(`listening on ${port}`)
+app.delete('/retierAgents', (req, res) => {
+    db.collection('vrant').deleteMany({}, (err, result) => {
+        if (err) return res.send(500, err)
+        res.send('Message deleted!')
     })
-  })
-  .catch(console.error)
+})
